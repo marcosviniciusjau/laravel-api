@@ -4,6 +4,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProdutoController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ShoppingListController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -41,8 +43,12 @@ use App\Http\Controllers\UserController;
 
   Route::delete('/products/{id}/delete', [ProdutoController::class, 'destroy'])->middleware('auth');
 
+  Route::post('/shopping-list/add/{productId}', [ShoppingListController::class, 'addToShoppingList'])->middleware('auth');
+
+
   Route::middleware('api')->get('/user', function (Request $request) {
       return $request->user();
   });
 
   Route::post('/create-user',[UserController::class, 'createUser']);
+

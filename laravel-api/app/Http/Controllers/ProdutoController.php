@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\ShoppingList;
 use App\Models\Produto;
 
 class ProdutoController extends Controller
@@ -19,6 +20,7 @@ class ProdutoController extends Controller
     }
 
    public function store(Request $request){
+
       $request->validate([
         'nome' => 'required',
         'preco' => 'required',
@@ -30,10 +32,12 @@ class ProdutoController extends Controller
     }
 
     public function show($id){ 
+
         return Produto::findOrfail($id); 
     }
 
     public function update(Request $request, string $id){
+
       $request->validate([
         'nome' => 'required',
         'preco' => 'required',
@@ -47,7 +51,14 @@ class ProdutoController extends Controller
 
   
     public function destroy(Request $request, $id){
+
         $produto = Produto::findOrFail($id);
         $produto->delete($request->all());
     }
+    
+    public function shoppingLists()
+{
+    return $this->hasMany(ShoppingList::class);
+}
+
 }
