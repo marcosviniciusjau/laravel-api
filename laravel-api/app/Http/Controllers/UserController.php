@@ -12,8 +12,8 @@ class UserController extends Controller
         User::all();
         return response->json($users);
     }
-    public function createUser()
-  {
+
+    public function createUser(){
     // Dados do novo usuário
     $userData = [
         'name' => 'required',
@@ -26,5 +26,5 @@ class UserController extends Controller
 
     // O novo usuário foi criado com sucesso
     return response()->json(['message' => 'Usuário criado com sucesso', 'user' => $user]);
-  }
+   }
 }

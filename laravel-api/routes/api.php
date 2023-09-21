@@ -4,7 +4,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProdutoController;
 use App\Http\Controllers\UserController;
-use App\Http\Controller\Api;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -21,6 +20,7 @@ use App\Http\Controller\Api;
     if(!$token = auth()->attempt($credentials)){
       abort (401);
     }
+
     return response()->json([
       'data'=> [
           'token'=> $token,
@@ -30,12 +30,19 @@ use App\Http\Controller\Api;
       ]
       ]);
   });
+
   Route::get('/products', [ProdutoController::class, 'index'])->middleware('auth');
+
   Route::post('/products', [ProdutoController::class, 'store'])->middleware('auth');
+
   Route::get('/products/{id}', [ProdutoController::class, 'show'])->middleware('auth');
+
   Route::put('/products/{id}/update', [ProdutoController::class, 'update'])->middleware('auth');
+
   Route::delete('/products/{id}/delete', [ProdutoController::class, 'destroy'])->middleware('auth');
+
   Route::middleware('api')->get('/user', function (Request $request) {
       return $request->user();
   });
-Route::post('/create-user',[UserController::class, 'createUser']);
+
+  Route::post('/create-user',[UserController::class, 'createUser']);
